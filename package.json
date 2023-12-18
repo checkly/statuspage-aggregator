@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
-    "test": "NODE_ENV=test npx checkly test -v"
+    "test": "NODE_ENV=test npx checkly test -v",
+    "deploy": "npx checkly deploy --preview && npx checkly deploy -f --no-schedule-on-deploy"
   },
   "author": "",
   "license": "ISC",

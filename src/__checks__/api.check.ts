@@ -8,6 +8,7 @@ new ApiCheck("books-api-check-1", {
   degradedResponseTime: 10000,
   maxResponseTime: 20000,
   activated: false,
+  tags: [],
   setupScript: {
     entrypoint: path.join(__dirname, "./utils/setup.ts"),
   },
