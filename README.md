@@ -1,4 +1,4 @@
-# Project Title
+# Checkly MaC Status Page Aggregator
 
 This project is designed to aggregate status pages into a single Checkly public dashboard. It leverages the concept of Monitoring as Code (MaC) to deploy the created checks with a 'statuspage' tag, ensuring they appear on the automatically created dashboard.
 
