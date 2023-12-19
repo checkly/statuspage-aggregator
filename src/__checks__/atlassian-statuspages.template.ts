@@ -1,16 +1,13 @@
 import { test, expect } from "@playwright/test";
-
-const baseUrl = "https://www.vercel-status.com/api/v2/";
-//status.json
-//incidents.json
-//components.json
+const domain = "DOMAIN";
+const protocol = "PROTOCOL";
+const apiPath = "api/v2/";
+const serviceName = "SERVICE_NAME";
+const baseUrl = `${protocol}://${domain}/${apiPath}`;
 
 const allSystemsOperational = "All Systems Operational";
-test("check vercel statuspage", async ({ request }) => {
-  /**
-   * Get all SpaceX Dragon Capsules
-   */
-  await test.step("check global status", async () => {
+test(`check ${serviceName} statuspage`, async ({ request }) => {
+  await test.step(`check global status of ${serviceName}`, async () => {
     const response = await request.get(`${baseUrl}${"status.json"}`);
     expect(response).toBeOK();
 
@@ -20,7 +17,7 @@ test("check vercel statuspage", async ({ request }) => {
     return data;
   });
 
-  await test.step("check incidents", async () => {
+  await test.step(`check ${serviceName} incidents`, async () => {
     const response = await request.get(`${baseUrl}${"incidents.json"}`);
     expect(response).toBeOK();
 
@@ -28,13 +25,13 @@ test("check vercel statuspage", async ({ request }) => {
     for (const i of data.incidents) {
       if (i.status !== "resolved") {
         console.log(`unresolved incident: ${i}`);
-        throw Error(`unresolved incident at Vercel ${i.shortlink}`);
+        throw Error(`unresolved incident at ${serviceName}: ${i.shortlink}`);
       }
     }
     return data;
   });
 
-  await test.step("check components", async () => {
+  await test.step(`check ${serviceName} components`, async () => {
     const response = await request.get(`${baseUrl}${"components.json"}`);
     expect(response).toBeOK();
 
@@ -43,7 +40,7 @@ test("check vercel statuspage", async ({ request }) => {
       console.log(`${c.name}:${c.status}`);
       if (c.status !== "operational") {
         console.log(c);
-        throw Error(`non operational component: ${c.name}`);
+        throw Error(`non operational component for ${serviceName}: ${c.name}`);
       }
     }
     return data;
